@@ -24,9 +24,9 @@
 ;; after ticket statuses have been defined, you can configure
 ;; transitions between ticket statuses allowed for a given role
 
-(defresource ticket-statuses
+(defresource item-statuses
   :handle-ok (fn [_]
-               (encode {:all :ticket-statuses}))
+               (encode {:all :item-statuses}))
   :post! (fn [_]
            ;; create a new ticket status
            
@@ -49,4 +49,4 @@
 (defroutes home-routes
   (ANY "/" [] root)
   (ANY "/workflows" workflows)
-  (ANY "/ticketStatuses" ticket-statuses))
+  (ANY "/itemStatuses" item-statuses))

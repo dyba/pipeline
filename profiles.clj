@@ -1,6 +1,6 @@
-{:dev {:env {:db "pipeline-dev"
-             :username "pipeline"
-             :password "pipeline"}}
- :test {:env {:db "pipeline-test"
-              :username "pipeline"
-              :password "pipeline"}}}
+{:dev {:env {:database-name "pipeline_dev"
+             :database-user "pipeline"
+             :database-password "pipeline"}}
+ :test {:env {:database-name "pipeline_test"
+              :database-user "pipeline"
+              :database-password "pipeline"}}}
