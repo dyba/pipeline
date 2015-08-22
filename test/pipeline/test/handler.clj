@@ -1,7 +1,7 @@
 (ns pipeline.test.handler
-  (:use midje.sweet
-        ring.mock.request
-        pipeline.handler))
+  (:require [ring.mock.request :refer :all]
+            [midje.sweet :refer :all]
+            [pipeline.handler :refer :all]))
 
 (fact "main route"
   (let [response (app (request :get "/"))]

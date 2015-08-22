@@ -2,7 +2,7 @@
   (:require [compojure.core :refer [ANY defroutes]]
             [pipeline.views.layout :as layout]
             [cheshire.core :refer [encode decode]]
-            [pipeline.db :as db]
+            [pipeline.db :refer [db-spec] :as db]
             [liberator.core :refer [defresource resource]]))
 
 ;; create a workflow
@@ -26,11 +26,12 @@
 
 (defresource item-statuses
   :handle-ok (fn [_]
-               (encode {:all :item-statuses}))
+               (let [statuses (vec (db/select-item-statuses db-spec))]
+                 (encode {:pipeline
+                          {:items statuses}})))
   :post! (fn [_]
-           ;; create a new ticket status
-           
-           )
+           (let [item-status (db/create-item-status<! db-spec "new" false false)]
+             (println item-status)))
   :allowed-methods [:get :post]
   :available-media-types ["application/vnd.pipeline+json"])
 
@@ -48,5 +49,5 @@
 
 (defroutes home-routes
   (ANY "/" [] root)
-  (ANY "/workflows" workflows)
-  (ANY "/itemStatuses" item-statuses))
+  (ANY "/workflows" [] workflows)
+  (ANY "/itemStatuses" [] item-statuses))

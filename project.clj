@@ -30,6 +30,6 @@
    {:ring
     {:open-browser? false, :stacktraces? false, :auto-reload? false}}
    :dev
-   {:dependencies [[ring-mock "0.1.5"]
+   {:dependencies [[ring-mock "0.2.0"]
                    [ring/ring-devel "1.3.1"]
                    [midje "1.7.0"]]}})
