@@ -1,16 +1,11 @@
 (ns pipeline.db
-  (:require [korma.db :refer [defdb postgres]]
-            [korma.core
-             :refer [defentity entity-fields select]]
-            [environ.core :refer [env]]))
+  (:require [environ.core :refer [env]]
+            [yesql.core :refer [defquery]]))
 
-(defdb db (postgres {:db (env :database-name)
-                     :user (get (env :database-user) "")
-                     :host (get env :database-host "localhost")
-                     :port (get env :database-port "5432")
-                     :password (get (env :database-password) "")}))
+(def db-spec {:user (get env :database-user "pipeline")
+              :password (get env :database-password "pipeline")
+              :subprotocol "postgresql"
+              :subname (str "//" (get env :database-host "localhost") "/" (get env :database-name))
+              :port (get env :database-port "5432")})
 
-(defentity ticket-issues
-  (entity-fields :name :issue-closed :default-value))
-
-
+(defquery select-item-statuses "queries/queries.sql")
